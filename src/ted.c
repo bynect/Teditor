@@ -9,7 +9,7 @@ FILE *fp = NULL;
 struct CURSOR cursor = {0, 0};
 struct TEXT_SCROLL text_scroll = {0, 0};
 
-char *filename;
+char *filename, *confname;
 char *menu_message = "";
 
 bool colors_on = 0;
@@ -22,11 +22,6 @@ void setcolor(int c) {
 }
 
 unsigned int last_cursor_x = 0;
-
-struct CFG config = {
-    4, 0, 0, 1, 1, 1,
-    &default_syntax, 0, NULL
-};
 
 int main(int argc, char **argv) {
     if (argc < 2) {
@@ -56,6 +51,9 @@ int main(int argc, char **argv) {
         }
         needs_to_free_filename = *argv[1] != '/';
     }
+
+    confname = home_path(".config/ted/config");
+    load_config(confname);
     
     setlocale(LC_ALL, "");
 
@@ -119,6 +117,9 @@ int main(int argc, char **argv) {
 
     if (needs_to_free_filename == 1)
         free(filename);
+
+    save_config(confname);
+    free(confname);
 
     endwin();
     return 0;

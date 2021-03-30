@@ -1,5 +1,14 @@
 #include "ted.h"
 
+void put_line_break(FILE *fpw) {
+    if (config.line_break_type == 0)
+        fputc('\n', fpw);
+    else if (config.line_break_type == 1)
+        fputs("\r\n", fpw);
+    else if (config.line_break_type == 2)
+        fputc('\r', fpw);
+}
+
 void savefile(void) {
     FILE *fpw = fopen(filename, "w");
 

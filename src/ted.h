@@ -43,7 +43,12 @@ void setcolor(int c);
 // config_dialog.c
 void config_dialog(void);
 
+// config.c
+void save_config(char *fname);
+void load_config(char *fname);
+
 // open_and_save.c
+void put_line_break(FILE *fpw);
 void savefile(void);
 void read_lines(void);
 void detect_linebreak(void);
@@ -82,12 +87,6 @@ char *split_spaces(char *str, char **save);
 char **split_str(const char *str, int *num_str);
 void calculate_len_line_number(void);
 bool uchar32_cmp(const uchar32_t *s1, const char *s2, unsigned int stringlen);
-
-// buffers.c
-void appendBuffer(char *bufname);
-void nextBuffer(void);
-void prevBuffer(void);
-void freeBuffers(void);
 
 // extension.c
 bool detect_extension(char *fname);
