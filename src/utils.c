@@ -53,7 +53,6 @@ char **split_str(const char *str, int *num_str) {
         }
 
         strs = realloc(strs, ++(*num_str) * sizeof(*strs));
-
         strs[*num_str - 1] = astr;
 
         if (spc == NULL || !*spc)

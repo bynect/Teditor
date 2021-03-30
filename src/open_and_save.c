@@ -32,14 +32,8 @@ void savefile(void) {
             unsigned char b[4];
             fwrite(b, sizeof(unsigned char), utf8ToMultibyte(lines[i].data[j], b), fpw);
         }
-        if (num_lines > 1) {
-            if (config.line_break_type == 0)
-                fputc('\n', fpw);
-            else if (config.line_break_type == 1)
-                fputs("\r\n", fpw);
-            else if (config.line_break_type == 2)
-                fputc('\r', fpw);
-        }
+        if (num_lines > 1)
+            put_line_break(fpw);
     }
     fclose(fpw);
 }
@@ -84,7 +78,6 @@ void read_lines(void) {
         char passed_spaces = 0;
 
         for (j = 0; (c = fgetc(fp)) != lineend && c != EOF; j++) {
-
             if (lines[i].length + 1 >= lines[i].len) {
                 lines[i].len += READ_BLOCKSIZE;
                 lines[i].data = realloc(lines[i].data, lines[i].len * sizeof(uchar32_t));
@@ -167,5 +160,5 @@ void detect_read_only(char *fname) {
             || (getgid() == st.st_gid && (st.st_mode & S_IWGRP)) // group write permission
         );
     } else
-        read_only = errno == EACCES; // if stat fails and errno is not EACCES, read_only will not be set
+        read_only = errno == EACCES; // if stat fails and errno is not EACCES, read_only will be set to false
 }

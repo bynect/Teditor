@@ -295,7 +295,7 @@ static struct SHD sh_syntax = {
 };
 
 /*
-Default syntax
+Default syntax highlighting descriptor
 */
 
 struct SHD default_syntax = {
@@ -310,10 +310,7 @@ struct SHD default_syntax = {
     {"", "", ""}
 };
 
-/*
-Global syntaxes
-*/
-
+//Global syntax descriptors
 struct SHD *syntaxes[] = {&c_syntax, &cpp_syntax, &python_syntax, &sh_syntax};
 
 void register_syntax(void) {
